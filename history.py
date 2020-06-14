@@ -1,5 +1,5 @@
 import gspread
-import datetime
+import utils
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
@@ -13,24 +13,14 @@ sheet = client.open("Inventory Backend").sheet1  # Open the Backend, look at she
 
 
 def check_in(barcode: str):
-    """ Check back in item barcode """
-    # Log the current date and time, then split it into two printable outputs
-    log = datetime.datetime.now()   # https://www.w3schools.com/python/python_datetime.asp
-    date = str(log.date())
-    time = str(log.strftime("%X"))  # %X - means 24hr clock w/out miliseconds
-
-    # Append row to inventory sheet. Requires array of strings.
-    row = [date, time, barcode, "SHOP"]
+    """ Add entry in 'History' sheet denoting item barcode checked in """
+    # Log the current date and time and append row to inventory sheet
+    row = utils.datetimearray() + [barcode, "SHOP"]
     sheet.append_row(row)
 
 
 def check_out(barcode: str, new_location: str):
-    """ Check out item barcode to new_location """
-    # Log the current date and time, then split it into two printable outputs
-    log = datetime.datetime.now()   # https://www.w3schools.com/python/python_datetime.asp
-    date = str(log.date())
-    time = str(log.strftime("%X"))  # %X - means 24hr clock w/out miliseconds
-
-    # Append row to inventory sheet. Requires array of strings.
-    row = [date, time, barcode, new_location]
+    """ Add entry in 'History' sheet denoting item barcode checked out to new_location """
+    # Append row of date, time , barcode and location to History sheet.
+    row = utils.datetimearray() + [barcode, new_location]
     sheet.append_row(row)

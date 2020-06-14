@@ -21,11 +21,16 @@ def main():
             print("Blank input. Try again.")
             main()
         elif initcode == "SHOP":
-            history.check_in(input("Item Barcode: "))
+            barcode = input("Item Barcode: ")
+            current.whereis(barcode)
+            history.check_in(barcode)
+            current.check_in(barcode)
         elif initcode == "CHKLOC":
-            current.check_location(input("Item Barcode: "))
+            barcode = input("Item Barcode: ")
+            current.whereis(barcode)
         else:
-            history.check_out(input("Item Barcode: "), initcode)
+            barcode = input("Item Barcode: ")
+            history.check_out(barcode, initcode)
 
 
 main()
