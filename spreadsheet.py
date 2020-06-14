@@ -14,8 +14,17 @@ client = gspread.authorize(creds)
 sheet = client.open("Legislators 2017").sheet1
 
 # Extract and print all of the values
-# list_of_hashes = sheet.get_all_records()
+list_of_hashes = sheet.get_all_records()
 
+data = sheet.get_all_records()
 
+row = sheet.row_values(1)
+col = sheet.col_values(1)
 
-pprint(col)
+cell = sheet.cell(1, 1)
+
+insertRow = ["hello", "test", 1001, "out"]
+sheet.insert_row(insertRow, 9)
+sheet.append_row(insertRow)
+
+pprint(cell)
