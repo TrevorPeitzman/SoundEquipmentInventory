@@ -33,6 +33,8 @@ def update_location(barcode: str, location: str):
     try:
         cell = sheet.find(barcode)
         sheet.update_cell(cell.row, cell.col + 1, location)
+        sheet.update_cell(cell.row, cell.col - 2, utils.datetimearray()[0])
+        sheet.update_cell(cell.row, cell.col - 1, utils.datetimearray()[1])
 
     except:
         print("Unable to locate " + barcode + ".")
