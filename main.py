@@ -1,4 +1,3 @@
-import datetime
 import history
 import current
 
@@ -17,20 +16,32 @@ def main():
 
         if initcode == "QUIT":
             exit()
+
         elif initcode == "":
             print("Blank input. Try again.")
             main()
+
         elif initcode == "SHOP":
             barcode = input("Item Barcode: ")
-            current.whereis(barcode)
-            history.check_in(barcode)
-            current.check_in(barcode)
+            if current.where_is(barcode) == "SHOP":
+                print("Item already in SHOP. Please scan another.")
+                main()
+            else:
+                history.check_in(barcode)
+                current.add_entry(barcode, initcode)
+
         elif initcode == "CHKLOC":
             barcode = input("Item Barcode: ")
-            current.whereis(barcode)
+            print(current.where_is(barcode))
+
         else:
             barcode = input("Item Barcode: ")
-            history.check_out(barcode, initcode)
+            if current.where_is(barcode) == initcode:
+                print("Item already checked out to " + initcode + ". Please scan another.")
+                main()
+            else:
+                history.check_out(barcode, initcode)
+                current.update_location(barcode, initcode)
 
 
 main()
