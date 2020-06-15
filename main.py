@@ -1,5 +1,6 @@
 import history
 import current
+import utils
 
 print("Welcome to the Sound Equipment Inventory System\nPlease scan a selector barcode to begin.")
 
@@ -8,13 +9,13 @@ def main():
     while True:
         initcode = input("Selector Barcode: ")
 
-        try:
-            initcode = str(initcode)
-        except:
-            print("Non-readable barcode entered. Please try again.")
-            main()
+        if utils.internet_on():
+            pass
+        else:
+            exit()
 
         if initcode == "QUIT":
+            utils.quitlog()
             exit()
 
         elif initcode == "":
