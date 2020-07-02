@@ -13,23 +13,25 @@ sheet = client.open("Inventory Backend").get_worksheet(1)  # Open the Backend, l
 
 
 def add_entry(barcode: str, location: str):
-    """ Update location of item barcode to 'SHOP' """
+    """ Add entry in 'CurrentState' sheet denoting new item barcode checked in/out to location """
     # Log the current date and time and append row to inventory sheet
     row = utils.datetimearray() + [barcode, location]
     sheet.append_row(row)
 
 
 def where_is(barcode: str):
+    """ Somewhat self-explanatory function that returns the current location of barcode """
     try:
         cell = sheet.find(barcode)
         location = sheet.cell(cell.row, cell.col + 1).value
-        return location
+        return str(location)
 
     except:
-        return "nowhere. NO CURRENT LOCATION FOR " + barcode
+        return str("nowhere. NO CURRENT LOCATION FOR " + barcode)
 
 
 def update_location(barcode: str, location: str):
+    """ Change the last location of barcode to location """
     try:
         cell = sheet.find(barcode)
         sheet.update_cell(cell.row, cell.col + 1, location)
