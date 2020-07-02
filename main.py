@@ -27,7 +27,8 @@ def main():
                 main()
             else:
                 history.check_in(barcode)
-                current.add_entry(barcode, initcode)
+                current.update_location(barcode, initcode)
+                print(barcode + " checked into SHOP.")
 
         elif initcode == "CHKLOC":
             barcode = input("Item Barcode: ")
