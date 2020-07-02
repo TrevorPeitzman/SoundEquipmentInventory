@@ -17,6 +17,7 @@ def internet_on():
         # connect to the host -- tells us if the host is actually reachable
         socket.create_connection(("www.google.com", 80))
         return True
+
     except OSError:
         print("NO INTERNET CONNECTION. QUITTING.")
         f = open("log.txt", "a")
@@ -46,4 +47,5 @@ def quitlog():
     history_sheet.append_row(row)
 
 
-
+def get_barcode_rules():
+    return rules_sheet.col_values(1)
