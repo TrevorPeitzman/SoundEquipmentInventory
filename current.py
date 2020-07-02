@@ -33,7 +33,7 @@ def where_is(barcode: str):
 def update_location(barcode: str, location: str):
     """ Change the last location of barcode to location """
     try:
-        cell = sheet.find(barcode)
+        cell = sheet.find(barcode, in_column=3)
         sheet.update_cell(cell.row, cell.col + 1, location)
         sheet.update_cell(cell.row, cell.col - 2, utils.datetimearray()[0])
         sheet.update_cell(cell.row, cell.col - 1, utils.datetimearray()[1])
@@ -42,3 +42,14 @@ def update_location(barcode: str, location: str):
         add_entry(barcode, location)
         print(barcode + " has no previous location.")
 
+
+def get_retired():
+    """ Returns an array of the items marked with location "RETIRE" in CurrentState sheet """
+    retired = []
+    cell_list = sheet.findall("RETIRE", in_column=4)
+
+    for i in cell_list:
+        item = sheet.cell(i.row, i.col - 1).value
+        retired.append(str(item))
+
+    return retired
