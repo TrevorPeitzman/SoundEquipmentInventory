@@ -26,7 +26,7 @@ def where_is(barcode: str):
         return location
 
     except:
-        return "Unable to locate " + barcode
+        return "nowhere. NO CURRENT LOCATION FOR " + barcode
 
 
 def update_location(barcode: str, location: str):
@@ -37,5 +37,6 @@ def update_location(barcode: str, location: str):
         sheet.update_cell(cell.row, cell.col - 1, utils.datetimearray()[1])
 
     except:
-        print("Unable to locate " + barcode + ".")
+        add_entry(barcode, location)
+        print(barcode + " has no previous location.")
 

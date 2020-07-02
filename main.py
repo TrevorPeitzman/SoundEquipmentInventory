@@ -11,21 +11,19 @@ def main():
 
         if utils.internet_on():
             pass
-        else:
-            exit()
 
         if initcode == "QUIT":
             utils.quitlog()
             exit()
 
-        elif initcode == "":
+        elif bool(initcode == "") | bool(initcode == " "):
             print("Blank input. Try again.")
             main()
 
         elif initcode == "SHOP":
             barcode = input("Item Barcode: ")
             if current.where_is(barcode) == "SHOP":
-                print("Item already in SHOP. Please scan another.")
+                print(barcode + " already in SHOP. Please scan another.")
                 main()
             else:
                 history.check_in(barcode)
@@ -33,16 +31,17 @@ def main():
 
         elif initcode == "CHKLOC":
             barcode = input("Item Barcode: ")
-            print(current.where_is(barcode))
+            print(barcode + " is checked out to " + current.where_is(barcode) + ".")
 
         else:
             barcode = input("Item Barcode: ")
             if current.where_is(barcode) == initcode:
-                print("Item already checked out to " + initcode + ". Please scan another.")
+                print(barcode + " is already checked out to " + initcode + ". Please scan another.")
                 main()
             else:
                 history.check_out(barcode, initcode)
                 current.update_location(barcode, initcode)
+                print(barcode + " checked out to " + initcode + ".")
 
 
 main()
