@@ -53,3 +53,22 @@ def get_retired():
         retired.append(str(item))
 
     return retired
+
+
+def get_lost():
+    nowarray = utils.datetime_array()
+    nowdate = str(nowarray[0])
+    criteriontime = utils.get_lostitem_time()
+
+    lostitems = []
+    lastdate = []
+    lastplace = []
+    all_itemdates = sheet.col_values(1)
+
+    # for i in all_itemdates:
+    #     if i - 0
+
+    # print(nowdate + criteriontime)
+    # print(criteriontime - nowdate)
+    # print(criteriontime - criteriontime)
+    return None

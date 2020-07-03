@@ -4,6 +4,7 @@ import utils
 
 print("Welcome to the Sound Equipment Inventory System\nPlease scan a selector barcode to begin.")
 global barcode
+current.get_lost()
 
 
 def main():

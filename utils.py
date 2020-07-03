@@ -49,3 +49,9 @@ def quit_log():
 
 def get_barcode_rules():
     return rules_sheet.col_values(1)
+
+
+def get_lostitem_time():
+    """ Returns the date after which to indicate an item is lost. """
+    months = int(rules_sheet.acell('D2').value)  # Time in months before an item is marked as lost from BarcodeRules
+    return str(datetime.date.today() - datetime.timedelta(weeks=(4.345*months)))    # 4.345 is ~ #weeks/month
