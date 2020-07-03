@@ -22,27 +22,23 @@ def main():
             main()
 
         elif initcode == "SHOP":
-            itemcode = get_barcode()
-            if current.where_is(itemcode) == "SHOP":
-                print(itemcode + " already in SHOP. Please scan another.")
-                main()
-            else:
-                history.check_in(itemcode)
-                current.update_location(itemcode, initcode)
-                print(itemcode + " checked into SHOP.")
+            itemcode = get_barcode(initcode)
+            history.check_in(itemcode)
+            current.update_location(itemcode, initcode)
+            print(itemcode + " checked into SHOP.")
 
         elif initcode == "RETIRE":
-            itemcode = get_barcode()
+            itemcode = get_barcode(initcode)
             history.check_out(itemcode, initcode)
             current.update_location(itemcode, initcode)
             print(itemcode + " retired. Thank you for your service, " + itemcode + ".")
 
         elif initcode == "CHKLOC":
-            itemcode = get_barcode()
+            itemcode = get_barcode(initcode)
             print(itemcode + " is checked out to " + current.where_is(itemcode) + ".")
 
         else:
-            itemcode = get_barcode()
+            itemcode = get_barcode(initcode)
             if current.where_is(itemcode) == initcode:
                 print(itemcode + " is already checked out to " + initcode + ". Please scan another.")
                 main()
@@ -52,14 +48,14 @@ def main():
                 print(itemcode + " checked out to " + initcode + ".")
 
 
-def get_barcode():
+def get_barcode(initcode: str):
     """ Prompts the user for the input barcode, tests to ensure their input is valid, returns barcode if it is. """
     global barcode
     barcode = input("Item Barcode: ")
 
     if bool(barcode == "") | bool(barcode == " "):
         print("Blank input. Try again.")
-        get_barcode()
+        get_barcode(initcode)
 
     elif barcode == "CANCEL":
         print("Cancelling.")
@@ -69,13 +65,17 @@ def get_barcode():
         print("Are you sure? Scan QUIT again to stop Sound Equipment Inventory System.")
         main()
 
+    elif bool(current.where_is(barcode) == "SHOP") & bool(initcode == "SHOP"):
+        print(barcode + " already in SHOP. Please scan another.")
+        get_barcode(initcode)
+
     elif barcode in current.get_retired():
         print(barcode + " is already retired. Try again.")
-        get_barcode()
+        get_barcode(initcode)
 
     elif barcode in utils.get_barcode_rules():
         print(barcode + " is reserved as a SELECTOR BARCODE. Try again.")
-        get_barcode()
+        get_barcode(initcode)
 
     return str(barcode)
 
