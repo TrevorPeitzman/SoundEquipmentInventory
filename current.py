@@ -15,7 +15,7 @@ sheet = client.open("Inventory Backend").get_worksheet(1)  # Open the Backend, l
 def add_entry(barcode: str, location: str):
     """ Add entry in 'CurrentState' sheet denoting new item barcode checked in/out to location """
     # Log the current date and time and append row to inventory sheet
-    row = utils.datetimearray() + [barcode, location]
+    row = utils.datetime_array() + [barcode, location]
     sheet.append_row(row)
 
 
@@ -35,8 +35,8 @@ def update_location(barcode: str, location: str):
     try:
         cell = sheet.find(barcode, in_column=3)
         sheet.update_cell(cell.row, cell.col + 1, location)
-        sheet.update_cell(cell.row, cell.col - 2, utils.datetimearray()[0])
-        sheet.update_cell(cell.row, cell.col - 1, utils.datetimearray()[1])
+        sheet.update_cell(cell.row, cell.col - 2, utils.datetime_array()[0])
+        sheet.update_cell(cell.row, cell.col - 1, utils.datetime_array()[1])
 
     except:
         add_entry(barcode, location)

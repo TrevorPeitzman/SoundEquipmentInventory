@@ -15,12 +15,12 @@ sheet = client.open("Inventory Backend").get_worksheet(0)  # Open the Backend, l
 def check_in(barcode: str):
     """ Add entry in 'History' sheet denoting item barcode checked in """
     # Log the current date and time and append row to inventory sheet
-    row = utils.datetimearray() + [barcode, "SHOP"]
+    row = utils.datetime_array() + [barcode, "SHOP"]
     sheet.append_row(row)
 
 
 def check_out(barcode: str, new_location: str):
     """ Add entry in 'History' sheet denoting item barcode checked out to new_location """
     # Append row of date, time , barcode and location to History sheet.
-    row = utils.datetimearray() + [barcode, new_location]
+    row = utils.datetime_array() + [barcode, new_location]
     sheet.append_row(row)

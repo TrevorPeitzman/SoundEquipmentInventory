@@ -4,7 +4,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import socket
 
 
-def datetimearray():
+def datetime_array():
     """ An SEI favorite. Return the famous datetimearrray for item logging purposes """
     current = datetime.datetime.now()  # https://www.w3schools.com/python/python_datetime.asp
     log = [str(current.date()), str(current.strftime("%X"))]
@@ -21,7 +21,7 @@ def internet_on():
     except OSError:
         print("NO INTERNET CONNECTION. QUITTING.")
         f = open("log.txt", "a")
-        f.write(str(datetimearray()) + " INTERNET DOWN\n")
+        f.write(str(datetime_array()) + " INTERNET DOWN\n")
         f.close()
         exit(420)
         return False
@@ -41,9 +41,9 @@ currentstate_sheet = client.open("Inventory Backend").get_worksheet(1)  # Open t
 rules_sheet = client.open("Inventory Backend").get_worksheet(2)  # Open the Backend, look at sheet 3
 
 
-def quitlog():
+def quit_log():
     """ Simply log the time and date that the user quit the system into the Backend sheet. """
-    row = datetimearray() + ["USR TERMINATE", "QUIT"]
+    row = datetime_array() + ["USR TERMINATE", "QUIT"]
     history_sheet.append_row(row)
 
 

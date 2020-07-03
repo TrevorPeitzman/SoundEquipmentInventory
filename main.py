@@ -14,7 +14,7 @@ def main():
             pass
 
         if initcode == "QUIT":
-            utils.quitlog()
+            utils.quit_log()
             exit()
 
         elif bool(initcode == "") | bool(initcode == " "):
