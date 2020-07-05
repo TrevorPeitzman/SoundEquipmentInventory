@@ -1,5 +1,6 @@
 import gspread
 import utils
+import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
@@ -56,19 +57,24 @@ def get_retired():
 
 
 def get_lost():
-    nowarray = utils.datetime_array()
-    nowdate = str(nowarray[0])
+    nowarray = utils.datetime_array()[0]
+    nowdate = datetime.date(int(nowarray[0:4]), int(nowarray[5:7]), int(nowarray[9:11]))
     criteriontime = utils.get_lostitem_time()
 
-    lostitems = []
-    lastdate = []
-    lastplace = []
     all_itemdates = sheet.col_values(1)
+    all_itemdates.remove("Date")
+    lastdate = []
+    lostitems = []
+    lastplace = []
+    row = 2
 
-    # for i in all_itemdates:
-    #     if i - 0
+    for i in all_itemdates:
+        if datetime.date(int(i[0:4]), int(i[5:7]), int(i[9:11])) < criteriontime:
+            lastdate.append(sheet.cell(row, 1))
+            lostitems.append(sheet.cell(row, 3))
+            lastplace.append(sheet.cell(row, 4))
+        row += 1
 
-    # print(nowdate + criteriontime)
-    # print(criteriontime - nowdate)
-    # print(criteriontime - criteriontime)
+    print(criteriontime < nowdate)
+    print(lostitems)
     return None
