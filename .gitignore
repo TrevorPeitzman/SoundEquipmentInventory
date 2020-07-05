@@ -126,3 +126,4 @@ dmypy.json
 client_secret.json
 *.py~
 sei_creds.json
+log.txt
