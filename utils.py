@@ -38,7 +38,7 @@ client = gspread.authorize(creds)
 
 history_sheet = client.open("Inventory Backend").get_worksheet(0)  # Open the Backend, look at sheet 1
 currentstate_sheet = client.open("Inventory Backend").get_worksheet(1)  # Open the Backend, look at sheet 2
-rules_sheet = client.open("Inventory Backend").get_worksheet(2)  # Open the Backend, look at sheet 3
+rules_sheet = client.open("Inventory Backend").get_worksheet(3)  # Open the Backend, look at sheet 4
 
 
 def quit_log():
